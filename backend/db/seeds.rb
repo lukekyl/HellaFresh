@@ -14,7 +14,3 @@ menuItem_d = MenuItem.create(name: "Beer", category: "Beverages", description: "
 user_a = User.create(name: "Frank", address: "600 Pennsylvania St., Denver, CO, 80203", email:"test_a@test.com" )
 user_b = User.create(name: "Miranda", address: "13780 Del Corso Way, Broomfield, CO, 80020", email:"test_a@test.com" )
 user_c = User.create(name: "Tony", address: "616 Saffron Way, Grand Junction, CO, 81505", email:"test_a@test.com" )
- 
-cart_a = Cart.create(menu_item: menuItem_a, user: user_a, is_order: false)
-cart_a = Cart.create(menu_item: menuItem_b, menu_item: menuItem_d, user: user_b, is_order: true)
-cart_a = Cart.create(menu_item: menuItem_c, user: user_c, is_order: false)

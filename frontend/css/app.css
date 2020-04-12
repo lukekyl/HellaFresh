@@ -1,0 +1,77 @@
+
+#main {
+    padding-top:60px;
+    padding-bottom:40px;
+}
+
+.menu_image {
+    width:100%;
+    height:auto;
+}
+
+.mega_image {
+    width:100%;
+    height:400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding:40px;
+}
+
+.item_title h4 {
+    font-weight: bold;
+}
+
+.item_price {
+    font-weight: 500;
+    text-align: right;
+    color:steelblue;
+    font-stretch:expanded;
+}
+
+.mega_price {
+    font-size: 20px;
+    font-weight:500;
+    padding:5px 10px;
+    background-color: coral;
+    color:white;
+    border-radius: 3px;
+    font-stretch:expanded;
+}
+
+.mega_description {
+    padding:40px;
+}
+
+.card {
+    border-radius: 4px;
+}
+
+.active {
+    cursor: pointer;
+    border-color:coral;
+}
+.active h4 {
+    color:coral;
+}
+
+.reveal {
+    padding:0;
+    border-radius: 5px;
+}
+
+.show-item {
+    
+}
+
+.order_button {
+    font-size: 16px;
+    color:white;
+    padding:10px 20px;
+    background-color: coral;
+    border-radius: 4px;
+}
+.order_button:hover {
+    background-color: steelblue;
+    cursor: pointer;
+}

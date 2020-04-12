@@ -1,5 +1,6 @@
 class MenuItemsController < ApplicationController
     def index
-        render json: { test: 'success'}
+        menu = MenuItem.all
+        render json: menu
     end
 end
