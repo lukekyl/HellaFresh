@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             menuContent.setAttribute('style', `background-color:white;`)
             menuContent.innerHTML = `
             <div class="large-8 medium-6 item_title"><h4>${item.name}</h4></div>
-            <div class="large-4 medium-6 item_price"><span>$${item.price}</span></div
+            <div class="large-4 medium-6 item_price"><span>$${item.printprice}</span></div
             <div class="large-12 medium-12"><p>${item.description}</p></div>`
             card.appendChild(image);
             card.appendChild(menuContent);
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showItem.id = `${item.id}`
                 showItem.innerHTML = `
                 <div class="card-section mega_image" style="background-image: url('${item.image_url}');">
-                <span class="mega_price">$${item.price}</span>
+                <span class="mega_price">$${item.printprice}</span>
                 </div>
                 <div class="card-section grid-x mega_description">
                 <div class="large-8 medium-6 item_title"><h4>${item.name}</h4></div>
@@ -112,7 +112,7 @@ function addToCart(item_id) {
             let cartItemPrice = document.createElement('div')
             cartItemPrice.setAttribute('class', 'large-3 cell')
             cartItemPrice.classList.add('cart_item_price')
-            cartItemPrice.innerHTML = `${cart_item.price}`
+            cartItemPrice.innerHTML = `${cart_item.printprice}`
             let cartItemDelete = document.createElement('div')
             cartItemDelete.setAttribute('class', 'large-1 cell')
             cartItemDelete.classList.add('cart_item_delete')
@@ -123,7 +123,7 @@ function addToCart(item_id) {
             cartItem.appendChild(cartItemDelete)
             loadCart.appendChild(cartItem)  
         });
-
+  
         let totalPrice = document.getElementById('total_price')
         totalPrice.innerHTML = `Total Price: ${cart.totalprice}`
         
