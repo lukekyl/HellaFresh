@@ -4,15 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const main = document.getElementById('main');
     const cart = document.getElementById('offCanvas');
     const errorDiv = document.getElementById('errors');
-    let cartToggle = false
+    // let cartToggle = false
 
 // Show Menu
-    function renderMenu(menuItems) {
-        console.log(menuItems)
+    function renderMenu(products) {
+        console.log(products)
         const menu = document.getElementById('menu')
         const grid = document.createElement('div')
         grid.setAttribute('class', 'grid-x grid-margin-x')
-        menuItems.forEach(item => {
+        products.forEach(item => {
             const card = document.createElement('div')
             card.setAttribute('class','card large-3 medium-4 cell')
             card.setAttribute('data-open', `reveal-${item.id}`)
@@ -76,11 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(error.message);
     };
 
-    const BACKEND_URL = 'http://localhost:3000/menu_items';
-    fetch(`${BACKEND_URL}`)
+    fetch('http://localhost:3000/products')
         .then(response => response.json())
-        .then(function(menuItems){
-            renderMenu(menuItems)
+        .then(function(products){
+            renderMenu(products)
         })
         .catch(function(error){
             alert('Error!')
@@ -94,37 +93,55 @@ function addToCart(item_id) {
     console.log(item_id)
 
     function renderCart(cart) {
-        cartToggle = true
+        // cartToggle = true
         console.log('Create Was a Success!')
         document.querySelector('div.reveal-overlay').click();
         console.log(cart)
         let itemNumber = document.getElementById('cart_item_number');
-        // itemNumber.innerHTML=`${cart.menu_item_id.count}`
-        let loadCart = docomeunt.getElementById('load_cart')
-        // cart.menu_item_id.forEach(cart_item => {
-        //     // Display each cart item
-        //     let cartItem = document.createElement('div')
-        //     cartItem.classList.add('cart_item') 
-        //     loadCart.appendChild(cartItem)  
-        // });
+        //itemNumber.innerHTML=`${cart.products.count}`
+        let loadCart = document.getElementById('load_cart')
+        cart.products.forEach(cart_item => {
+            // Display each cart item
+            let cartItem = document.createElement('div')
+            cartItem.setAttribute('class', 'large-12 cell grid-x')
+            cartItem.classList.add('cart_item') 
+            let cartItemTitle = document.createElement('div')
+            cartItemTitle.setAttribute('class', 'large-8 cell')
+            cartItemTitle.classList.add('cart_item_title')
+            cartItemTitle.innerHTML = `${cart_item.name}`
+            let cartItemPrice = document.createElement('div')
+            cartItemPrice.setAttribute('class', 'large-3 cell')
+            cartItemPrice.classList.add('cart_item_price')
+            cartItemPrice.innerHTML = `${cart_item.price}`
+            let cartItemDelete = document.createElement('div')
+            cartItemDelete.setAttribute('class', 'large-1 cell')
+            cartItemDelete.classList.add('cart_item_delete')
+            cartItemDelete.innerHTML = '<button>x</button>'
+
+            cartItem.appendChild(cartItemTitle)
+            cartItem.appendChild(cartItemPrice)
+            cartItem.appendChild(cartItemDelete)
+            loadCart.appendChild(cartItem)  
+        });
+
+        let totalPrice = document.getElementById('total_price')
+        totalPrice.innerHTML = `Total Price: ${cart.totalprice}`
         
 
+
     };
 
+    
 
-    let formData = {
-        menu_item_id: item_id,
-        user_id: 1
-    };
-    let configCart = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData)
-    };
+    // let configCart = {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(formData)
+    // };
 
-    fetch("http://localhost:3000/carts", configCart)
+    fetch("http://localhost:3000/carts/3")
         .then(function (response) {
             return response.json();
         })

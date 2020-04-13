@@ -1,24 +1,30 @@
 class CartsController < ApplicationController
     def index
+        # user = User.find_by(id: params[:user_id])
+        # carts = user.carts
         carts = Cart.all
-        render json: carts
+        render json: carts, include: [:products]
     end
     def show
+        # user = User.find_by(id: params[:user_id])
+        # cart = user.carts.find_by(id: params[:id])
         cart = Cart.find_by(id: params[:id])
         if cart
-            render json: cart.to_json
+            render json: cart, include: [:products]
         else
             render json: {message: 'Error! Cart not found.'}
         end
     end
     def create
         # Add a Cart.find_or_create_by(id:[params[:id]])
-        cart = Cart.create(menu_item_id: params[:menu_item_id], user_id: params[:user_id])
+        # user = User.find_by(id: params[:user_id])
+        # cart = Cart.create(product: params[:product], user: user)
+        cart = Cart.create()
         render json: cart.to_json
     end
     def edit
         @cart = Cart.find(params[:id])
-        cart.update(menu_item_id: params[:menu_item_id])
+        cart.update(product: params[:product])
         render json: cart.to_json
     end
     def destroy

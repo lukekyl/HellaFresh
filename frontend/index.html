@@ -13,13 +13,21 @@
     <div class="off-canvas-wrapper"></div>
     <!-- Cart -->
     <div class="off-canvas position-right grid-container" id="offCanvas" data-off-canvas>
-      <div class="grid-x">
+      <div class="grid-x" id="view_cart">
         <div class="large-12 cell">
           <h4>My Cart</h4>
           <p><span class="cart_item_number">0</span> Item(s)</p>
         </div>
-        <div class="large-12 cell" id="load_cart">
+        <div class="large-12 cell grid-x grid-padding-x" id="load_cart">
 
+        </div>
+        <div class="large-12 cell align-self-bottom" id="total_price">
+          
+        </div>
+        <div class="large-12 cell align-self-bottom" id="complete_order">
+            <button>
+              Complete Order
+            </button>
         </div>
       </div>
     </div>

@@ -1,0 +1,2 @@
+class JoinProductsController < ApplicationController
+end

@@ -75,3 +75,40 @@
     background-color: steelblue;
     cursor: pointer;
 }
+
+.cart_item {
+    font-weight: 500;
+    border:solid 1px lightskyblue;
+    margin-top:10px;
+    margin-bottom:10px;
+    padding:10px 5px;
+}
+.cart_item_title {
+    font-weight: bold;
+}
+.cart_item_price {
+    text-align: left;
+
+}
+.cart_item_delete {
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.cart_item_delete button {
+    vertical-align: middle;
+    background-color: red;
+    text-align: center;
+    color:white;
+    font-weight: 600;
+    width:20px;
+    height: 20px;
+    border-radius: 4px;
+}
+.cart_item_delete button:hover {
+    background-color: maroon;
+}
+
+#view_cart {
+    height:100%;
+}
