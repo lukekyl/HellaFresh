@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const main = document.getElementById('main');
     const cart = document.getElementById('offCanvas');
     const errorDiv = document.getElementById('errors');
+    const currentCart = document.querySelector('.current_cart')
     let cartToggle = false
     
 
@@ -62,9 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 //Add Order
                 let orderButton = document.querySelector('button.order_button')
                 orderButton.addEventListener('click', (e) => {
-                    addToCart(item.id)
+                    loadCart(e.target.id)
                     document.querySelector('div.reveal-overlay').click();
-                    showTheCart()
                     document.getElementById('reveal_cart').click();
                 });
             });
@@ -91,26 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 
-//Add Order
-
-    function addToCart(item_id) {
-        console.log(item_id)
-
-        
-        // console.log('Create Was a Success!')
-        
-    };
-
-
-// Show Cart
-    function showTheCart() {
+    // Display Cart
+    function displayCart(cart_id) {
         function renderCart(cart) {
-            console.log(cart)
-            const currentCart = document.querySelector('.current_cart')
             currentCart.setAttribute('id', `${cart.id}`)
             let itemNumber = document.getElementById('cart_item_number');
-            itemNumber.innerHTML=`${cart.totalitems}`
+            itemNumber.innerHTML = `${cart.totalitems}`
             let loadCart = document.getElementById('load_cart')
+            loadCart.innerHTML = ""
             cart.products.forEach(cart_item => {
                 // Display each cart item
                 let cartItem = document.createElement('div')
@@ -138,23 +126,67 @@ document.addEventListener('DOMContentLoaded', () => {
             totalPrice.innerHTML = `Total Price: ${cart.totalprice}`
 
         };
-        function fetchCart(cart_id){
-        fetch(`http://localhost:3000/carts/${cart_id}`)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (cart) {
-                renderCart(cart);
-            })
-            .catch(function (error) {
-                alert("Error! Cart was not found!");
-                renderError(error);
-            });
-        }
+        function fetchCart(cart_id) {
+            fetch(`http://localhost:3000/carts/${cart_id}`)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (cart) {
+                    renderCart(cart);
+                })
+                .catch(function (error) {
+                    alert("Error! Cart was not found!");
+                    renderError(error);
+                });
+        };
+        fetchCart(cart_id);
+    }
 
-        // Load Cart
-        function loadCart() {
-            let createCart = {
+
+    //Add Order
+
+    function addToCart(cart_id, product_id) {
+        console.log(product_id)
+
+        function addItemToCart(cart_id, product_id) {
+            let formData = {
+                cart_id: cart_id,
+                product_id: product_id
+            };
+            let createJoinTable = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData)
+            };
+
+            fetch("http://localhost:3000/join_products", createJoinTable)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (table) {
+                    console.log('Create Was a Success!')
+                    console.log(table)
+                })
+                .then(function () {
+                    displayCart(cart_id)
+                })
+                .catch(function (error) {
+                    alert("Error! Cart was not created.");
+                    renderError(error);
+                });
+        };
+        addItemToCart(cart_id, product_id)
+    };
+
+
+// Load Cart
+    function loadCart(product_id) {
+
+        // Create Cart
+        function createCart() {
+            let configCart = {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -162,14 +194,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify()
             };
 
-            fetch("http://localhost:3000/carts", createCart)
+            fetch("http://localhost:3000/carts", configCart)
             .then(function (response) {
                 return response.json();
             })
             .then (function (cart) {
                 cartToggle = true
                 console.log(cart.id)
-                fetchCart(cart.id)
+                addToCart(cart.id, product_id)
             })
             .catch(function (error) {
                 alert("Error! Cart was not created.");
@@ -178,12 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // If statement for load new cart or display current
-        let currentCart = document.querySelector('.current_cart')
-        console.log(cartToggle)
-        cartToggle === true ? fetchCart(currentCart.id) : loadCart()
-
-        
-
+        //console.log(cartToggle)
+        console.log(product_id)
+        cartToggle === true ? addToCart(currentCart.id, product_id) : createCart()
     };
 
 
