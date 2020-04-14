@@ -14,9 +14,9 @@
     <!-- Cart -->
     <div class="off-canvas position-right grid-container" id="offCanvas" data-off-canvas>
       <div class="grid-x" id="view_cart">
-        <div class="large-12 cell">
-          <h4>My Cart</h4>
-          <p><span class="cart_item_number">0</span> Item(s)</p>
+        <div class="large-12 cell" id="cart_data">
+          <h4 class="current_cart">My Cart</h4>
+          <p><span id="cart_item_number">0</span> Item(s)</p>
         </div>
         <div class="large-12 cell grid-x grid-padding-x" id="load_cart">
 
@@ -40,7 +40,7 @@
         </div>
         <div class="title-bar-right">
           <ul class="menu icons icon-left align-right">
-            <li><button type="button" class="button" data-toggle="offCanvas"><i class="fa fa-list"></i></button></a></li>
+            <li><button type="button" class="button" id="reveal_cart" data-toggle="offCanvas"><i class="fa fa-list"></i></button></a></li>
           </ul>
         </div>
       </div>

@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const main = document.getElementById('main');
     const cart = document.getElementById('offCanvas');
     const errorDiv = document.getElementById('errors');
-    // let cartToggle = false
+    let cartToggle = false
+    
 
 // Show Menu
     function renderMenu(products) {
@@ -62,6 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 let orderButton = document.querySelector('button.order_button')
                 orderButton.addEventListener('click', (e) => {
                     addToCart(item.id)
+                    document.querySelector('div.reveal-overlay').click();
+                    showTheCart()
+                    document.getElementById('reveal_cart').click();
                 });
             });
         });
@@ -89,71 +93,98 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //Add Order
 
-function addToCart(item_id) {
-    console.log(item_id)
+    function addToCart(item_id) {
+        console.log(item_id)
 
-    function renderCart(cart) {
-        // cartToggle = true
-        console.log('Create Was a Success!')
-        document.querySelector('div.reveal-overlay').click();
-        console.log(cart)
-        let itemNumber = document.getElementById('cart_item_number');
-        //itemNumber.innerHTML=`${cart.products.count}`
-        let loadCart = document.getElementById('load_cart')
-        cart.products.forEach(cart_item => {
-            // Display each cart item
-            let cartItem = document.createElement('div')
-            cartItem.setAttribute('class', 'large-12 cell grid-x')
-            cartItem.classList.add('cart_item') 
-            let cartItemTitle = document.createElement('div')
-            cartItemTitle.setAttribute('class', 'large-8 cell')
-            cartItemTitle.classList.add('cart_item_title')
-            cartItemTitle.innerHTML = `${cart_item.name}`
-            let cartItemPrice = document.createElement('div')
-            cartItemPrice.setAttribute('class', 'large-3 cell')
-            cartItemPrice.classList.add('cart_item_price')
-            cartItemPrice.innerHTML = `${cart_item.printprice}`
-            let cartItemDelete = document.createElement('div')
-            cartItemDelete.setAttribute('class', 'large-1 cell')
-            cartItemDelete.classList.add('cart_item_delete')
-            cartItemDelete.innerHTML = '<button>x</button>'
-
-            cartItem.appendChild(cartItemTitle)
-            cartItem.appendChild(cartItemPrice)
-            cartItem.appendChild(cartItemDelete)
-            loadCart.appendChild(cartItem)  
-        });
-  
-        let totalPrice = document.getElementById('total_price')
-        totalPrice.innerHTML = `Total Price: ${cart.totalprice}`
         
-
-
+        // console.log('Create Was a Success!')
+        
     };
 
-    
 
-    // let configCart = {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formData)
-    // };
+// Show Cart
+    function showTheCart() {
+        function renderCart(cart) {
+            console.log(cart)
+            const currentCart = document.querySelector('.current_cart')
+            currentCart.setAttribute('id', `${cart.id}`)
+            let itemNumber = document.getElementById('cart_item_number');
+            itemNumber.innerHTML=`${cart.totalitems}`
+            let loadCart = document.getElementById('load_cart')
+            cart.products.forEach(cart_item => {
+                // Display each cart item
+                let cartItem = document.createElement('div')
+                cartItem.setAttribute('class', 'large-12 cell grid-x')
+                cartItem.classList.add('cart_item')
+                let cartItemTitle = document.createElement('div')
+                cartItemTitle.setAttribute('class', 'large-8 cell')
+                cartItemTitle.classList.add('cart_item_title')
+                cartItemTitle.innerHTML = `${cart_item.name}`
+                let cartItemPrice = document.createElement('div')
+                cartItemPrice.setAttribute('class', 'large-3 cell')
+                cartItemPrice.classList.add('cart_item_price')
+                cartItemPrice.innerHTML = `${cart_item.printprice}`
+                let cartItemDelete = document.createElement('div')
+                cartItemDelete.setAttribute('class', 'large-1 cell')
+                cartItemDelete.classList.add('cart_item_delete')
+                cartItemDelete.innerHTML = '<button>x</button>'
 
-    fetch("http://localhost:3000/carts/3")
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (cart) {
-            renderCart(cart);
-        })
-        .catch(function (error) {
-            alert("Error! Cart was not created.");
-            renderError(error);
-        });
+                cartItem.appendChild(cartItemTitle)
+                cartItem.appendChild(cartItemPrice)
+                cartItem.appendChild(cartItemDelete)
+                loadCart.appendChild(cartItem)
+            });
+            let totalPrice = document.getElementById('total_price')
+            totalPrice.innerHTML = `Total Price: ${cart.totalprice}`
 
-}
+        };
+        function fetchCart(cart_id){
+        fetch(`http://localhost:3000/carts/${cart_id}`)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (cart) {
+                renderCart(cart);
+            })
+            .catch(function (error) {
+                alert("Error! Cart was not found!");
+                renderError(error);
+            });
+        }
+
+        // Load Cart
+        function loadCart() {
+            let createCart = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify()
+            };
+
+            fetch("http://localhost:3000/carts", createCart)
+            .then(function (response) {
+                return response.json();
+            })
+            .then (function (cart) {
+                cartToggle = true
+                console.log(cart.id)
+                fetchCart(cart.id)
+            })
+            .catch(function (error) {
+                alert("Error! Cart was not created.");
+                renderError(error);
+            });
+        }
+        
+        // If statement for load new cart or display current
+        let currentCart = document.querySelector('.current_cart')
+        console.log(cartToggle)
+        cartToggle === true ? fetchCart(currentCart.id) : loadCart()
+
+        
+
+    };
 
 
 });
