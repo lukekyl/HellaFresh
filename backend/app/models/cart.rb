@@ -1,6 +1,7 @@
 class Cart < ApplicationRecord
   has_many :join_products
   has_many :products, through: :join_products
+
   
   def totalitems
     self.products.count
@@ -13,5 +14,6 @@ class Cart < ApplicationRecord
     end
     return sprintf("%03d", total).insert(-3, ".")
   end
+
 
 end

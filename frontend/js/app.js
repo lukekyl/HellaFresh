@@ -6,14 +6,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorDiv = document.getElementById('errors');
     const currentCart = document.querySelector('.current_cart')
     let cartToggle = false
-    
+
+    function renderError(error) {
+        const p = document.createElement('p');
+        p.innerHTML = `<p style="color:red;"><strong>${error.message}</strong></p>`
+        errorDiv.appendChild(p);
+        console.log(error.message);
+    };
 
 // Show Menu
     function renderMenu(products) {
         console.log(products)
-        const menu = document.getElementById('menu')
-        const grid = document.createElement('div')
-        grid.setAttribute('class', 'grid-x grid-margin-x')
+        const starterMenu = document.getElementById('Starter')
+        const entreeMenu = document.getElementById('Entree')
+        const drinkMenu = document.getElementById('Beverage')
+        const dessertMenu = document.getElementById('Dessert')
+
+
+        // Watch Filter bar & Filter w FuzzyMatch
+        const searchForm = document.getElementById('search_form')
+        searchForm.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        filterProducts(event);
+        })
+        function filterProducts(event) {
+            console.log(event.target)
+        }
+        // function fuzzyMatch(drivers, string) {
+        //     return drivers.filter(driver => {
+        //         return driver.startsWith(string);
+        //     });
+        // };
+
         products.forEach(item => {
             const card = document.createElement('div')
             card.setAttribute('class','card large-3 medium-4 cell')
@@ -32,7 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="large-12 medium-12"><p>${item.description}</p></div>`
             card.appendChild(image);
             card.appendChild(menuContent);
-            grid.appendChild(card);
+
+            // Append products here in sorted locations by category
+            if(starterMenu.id === item.category){
+                starterMenu.parentElement.style.display = "block"
+                starterMenu.appendChild(card);
+            } else if (entreeMenu.id === item.category){
+                entreeMenu.parentElement.style.display = "block"
+                entreeMenu.appendChild(card);
+            } else if (drinkMenu.id === item.category){
+                drinkMenu.parentElement.style.display = "block"
+                drinkMenu.appendChild(card);
+            } else if (dessertMenu.id === item.category){
+                dessertMenu.parentElement.style.display = "block"
+                dessertMenu.appendChild(card);
+            } else{ console.log (`${item.name} cound not be placed.`)}
 
             //Hover
             const revealItem = document.querySelector('div.reveal')
@@ -60,26 +98,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 `
 
-                //Add Order
-                let orderButton = document.querySelector('button.order_button')
-                orderButton.addEventListener('click', (e) => {
+                //Add Cart Item
+                let addCartItem = document.querySelector('button.order_button')
+                addCartItem.addEventListener('click', (e) => {
                     loadCart(e.target.id)
                     document.querySelector('div.reveal-overlay').click();
                     document.getElementById('reveal_cart').click();
                 });
             });
         });
-        menu.appendChild(grid);
     };
 
+    
 
-    function renderError(error) {
-        const p = document.createElement('p');
-        p.innerHTML = `<p style="color:red;"><strong>${error.message}</strong></p>`
-        errorDiv.appendChild(p);
-        console.log(error.message);
-    };
-
+    function fetchCart(){
     fetch('http://localhost:3000/products')
         .then(response => response.json())
         .then(function(products){
@@ -89,7 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Error!')
             renderError(error)
         });
-
+    }
+    fetchCart();
 
     // Display Cart
     function displayCart(cart_id) {
@@ -99,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             itemNumber.innerHTML = `${cart.totalitems}`
             let loadCart = document.getElementById('load_cart')
             loadCart.innerHTML = ""
-            cart.products.forEach(cart_item => {
+            cart.join_products.forEach(cart_item => {
                 // Display each cart item
                 let cartItem = document.createElement('div')
                 cartItem.setAttribute('class', 'large-12 cell grid-x')
@@ -107,20 +140,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 let cartItemTitle = document.createElement('div')
                 cartItemTitle.setAttribute('class', 'large-8 cell')
                 cartItemTitle.classList.add('cart_item_title')
-                cartItemTitle.innerHTML = `${cart_item.name}`
+                cartItemTitle.innerHTML = `${cart_item.product.name}`
                 let cartItemPrice = document.createElement('div')
                 cartItemPrice.setAttribute('class', 'large-3 cell')
                 cartItemPrice.classList.add('cart_item_price')
-                cartItemPrice.innerHTML = `${cart_item.printprice}`
+                cartItemPrice.innerHTML = `${cart_item.product.printprice}`
                 let cartItemDelete = document.createElement('div')
                 cartItemDelete.setAttribute('class', 'large-1 cell')
                 cartItemDelete.classList.add('cart_item_delete')
-                cartItemDelete.innerHTML = '<button>x</button>'
+                let deleteCartItem = document.createElement('button')
+                deleteCartItem.setAttribute('class', 'delete_button')
+                deleteCartItem.setAttribute('id', `${cart_item.id}`)
+                deleteCartItem.innerHTML = 'x'
 
+                cartItemDelete.appendChild(deleteCartItem)
                 cartItem.appendChild(cartItemTitle)
                 cartItem.appendChild(cartItemPrice)
                 cartItem.appendChild(cartItemDelete)
                 loadCart.appendChild(cartItem)
+
+                // Delete Cart Item
+                deleteCartItem.addEventListener('click', (e) => {
+                    let table_id = e.target.id
+                    removeFromCart(cart_id, table_id)
+                    document.querySelector('div.js-off-canvas-overlay').click();
+
+                });
             });
             let totalPrice = document.getElementById('total_price')
             totalPrice.innerHTML = `Total Price: ${cart.totalprice}`
@@ -143,7 +188,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    //Add Order
+    //Remove From Cart
+    function removeFromCart(cart_id, table_id) {
+        console.log(`Cart ID: ${cart_id}, Join Table ID: ${table_id}`)
+
+        let deleteRequest = {
+            method: "DELETE",
+        };
+        // Is this going to the right place? Cart not updating, still has "product" after join table deleted. NO
+        fetch(`http://localhost:3000/join_products/${table_id}`, deleteRequest)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function(table){
+                console.log(table)
+            })
+            .then(function(){
+                displayCart(cart_id);
+            })
+            .catch(function (error) {
+                alert("Error! Table was not deleted.");
+                renderError(error);
+            });
+    }
+
+
+    //Add To Cart
 
     function addToCart(cart_id, product_id) {
         console.log(product_id)
@@ -166,10 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.json();
                 })
                 .then(function (table) {
-                    console.log('Create Was a Success!')
-                    console.log(table)
+                    console.log(`Creating Table ${table.id} Was a Success!`)
                 })
-                .then(function () {
+                .then(function (table) {
                     displayCart(cart_id)
                 })
                 .catch(function (error) {

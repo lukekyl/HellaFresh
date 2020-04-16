@@ -50,10 +50,19 @@
     <div class="grid-container off-canvas-content" id="main" data-off-canvas-content>
             
 
-      <div class="grid-x grid-padding-x">
-        <div class="large-12 cell">
-          <!-- ADD SEARCH BAR HERE -->
-        </div>
+        <div class="grid-x grid-padding-x">
+          <div class="large-12 cell"  id="search_container">
+            <!-- Search Bar -->
+            <form id="search_form">
+              <div class="grid-x">
+                <div class="large-12 cell">
+                  <label id="search_bar">
+                    <input type="text" placeholder="&#128269; Search HellaFresh Menu">
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
         <div class="large-12 cell" id="errors">
         
         </div>
@@ -64,13 +73,14 @@
         </div>
       </div>
       
-      
 
       <div class="grid-x grid-padding-x">
         <div class="large-12 cell">
-          <div class="callout" id="menu">
-            <h3>Menu Items</h3>
-            
+          <div class="grid-x grid-margin-x" id="menu">
+            <div class="callout" style="display:none"><h4>Starters</h4><div class="grid-x grid-margin-x" id="Starter"></div></div>
+            <div class="callout"  style="display:none"><h4>Entrees</h4><div class="grid-x grid-margin-x" id="Entree"></div></div>
+            <div class="callout"  style="display:none"><h4>Beverages</h4><div class="grid-x grid-margin-x" id="Beverage"></div></div>
+            <div class="callout"  style="display:none"><h4>Desserts</h4><div class="grid-x grid-margin-x" id="Dessert"></div></div>
           </div>
         </div>
       </div>

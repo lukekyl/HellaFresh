@@ -23,4 +23,14 @@ class JoinProductsController < ApplicationController
             render json: {message: 'Error! Join Table could not be created in controller.'}
         end
     end
+    def destroy
+        puts params
+        table = JoinProduct.find_by(id: params[:id])
+        if table
+            table.destroy
+            render json: table.to_json
+        else
+            render json: {message: "Error! Join Table could not be deleted in controller."}
+        end
+    end
 end

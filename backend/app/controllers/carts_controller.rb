@@ -10,7 +10,8 @@ class CartsController < ApplicationController
         # cart = user.carts.find_by(id: params[:id])
         cart = Cart.find_by(id: params[:id])
         if cart
-            render json: cart.to_json(:include => {:products => {:methods => [:printprice]}}, :methods => [:totalitems, :totalprice])
+            render json: cart.to_json(:include => {:join_products => {:include => {:product => {:methods => [:printprice]}}}}, :methods => [:totalitems, :totalprice])
+            # render json: cart.to_json(:include => {:products => {:methods => [:printprice]}}, :methods => [:totalitems, :totalprice])
         else
             render json: {message: 'Error! Cart not found.'}
         end
