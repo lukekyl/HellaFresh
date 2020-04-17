@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const cart = document.getElementById('offCanvas');
     const errorDiv = document.getElementById('errors');
     const currentCart = document.querySelector('.current_cart')
+    const searchForm = document.getElementById('search_form')
     let cartToggle = false
+    let searchTerm = ""
 
     function renderError(error) {
         const p = document.createElement('p');
@@ -14,29 +16,60 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(error.message);
     };
 
+// Fetch Menu
+    function fetchCart(searchTerm) {
+        fetch('http://localhost:3000/products')
+            .then(response => response.json())
+            .then(function (products) {
+                console.log(searchTerm)
+                filterProducts(searchTerm, products)
+            })
+            .catch(function (error) {
+                alert('Error!')
+                renderError(error)
+            });
+    }
+    fetchCart(searchTerm);
+
+// Search Bar
+    searchForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        searchTerm = event.target.firstElementChild.firstElementChild.firstElementChild.firstElementChild.value.toLowerCase()
+        fetchCart(searchTerm);
+    })
+
+   
+//Filter Menu
+    function filterProducts(searchTerm, products){
+        let productList = products
+        if (searchTerm !== null) {
+            console.log(searchTerm)
+            productList = products.filter(product => {
+                let productName = product.name.toLowerCase()
+                return productName.startsWith(searchTerm)
+            })
+        }
+        renderMenu(productList)
+    }
+ 
+
 // Show Menu
     function renderMenu(products) {
         console.log(products)
         const starterMenu = document.getElementById('Starter')
+        starterMenu.innerHTML = ""
+        starterMenu.parentElement.style.display = "none"
         const entreeMenu = document.getElementById('Entree')
+        entreeMenu.innerHTML = ""
+        entreeMenu.parentElement.style.display = "none"
         const drinkMenu = document.getElementById('Beverage')
+        drinkMenu.innerHTML = ""
+        drinkMenu.parentElement.style.display = "none"
         const dessertMenu = document.getElementById('Dessert')
+        dessertMenu.innerHTML = ""
+        dessertMenu.parentElement.style.display = "none"
 
-
-        // Watch Filter bar & Filter w FuzzyMatch
-        const searchForm = document.getElementById('search_form')
-        searchForm.addEventListener('submit', function(event) {
-        event.preventDefault(); 
-        filterProducts(event);
-        })
-        function filterProducts(event) {
-            console.log(event.target)
-        }
-        // function fuzzyMatch(drivers, string) {
-        //     return drivers.filter(driver => {
-        //         return driver.startsWith(string);
-        //     });
-        // };
 
         products.forEach(item => {
             const card = document.createElement('div')
@@ -110,21 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     
-
-    function fetchCart(){
-    fetch('http://localhost:3000/products')
-        .then(response => response.json())
-        .then(function(products){
-            renderMenu(products)
-        })
-        .catch(function(error){
-            alert('Error!')
-            renderError(error)
-        });
-    }
-    fetchCart();
-
-    // Display Cart
+// Display Cart
     function displayCart(cart_id) {
         function renderCart(cart) {
             currentCart.setAttribute('id', `${cart.id}`)
@@ -188,32 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    //Remove From Cart
-    function removeFromCart(cart_id, table_id) {
-        console.log(`Cart ID: ${cart_id}, Join Table ID: ${table_id}`)
-
-        let deleteRequest = {
-            method: "DELETE",
-        };
-        // Is this going to the right place? Cart not updating, still has "product" after join table deleted. NO
-        fetch(`http://localhost:3000/join_products/${table_id}`, deleteRequest)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function(table){
-                console.log(table)
-            })
-            .then(function(){
-                displayCart(cart_id);
-            })
-            .catch(function (error) {
-                alert("Error! Table was not deleted.");
-                renderError(error);
-            });
-    }
-
-
-    //Add To Cart
+//Add To Cart
 
     function addToCart(cart_id, product_id) {
         console.log(product_id)
@@ -248,6 +242,31 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         addItemToCart(cart_id, product_id)
     };
+
+
+//Remove From Cart
+    function removeFromCart(cart_id, table_id) {
+        console.log(`Cart ID: ${cart_id}, Join Table ID: ${table_id}`)
+
+        let deleteRequest = {
+            method: "DELETE",
+        };
+        // Is this going to the right place? Cart not updating, still has "product" after join table deleted. NO
+        fetch(`http://localhost:3000/join_products/${table_id}`, deleteRequest)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (table) {
+                console.log(table)
+            })
+            .then(function () {
+                displayCart(cart_id);
+            })
+            .catch(function (error) {
+                alert("Error! Table was not deleted.");
+                renderError(error);
+            });
+    }    
 
 
 // Load Cart
