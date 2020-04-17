@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let cartItemPrice = document.createElement('div')
                 cartItemPrice.setAttribute('class', 'large-3 cell')
                 cartItemPrice.classList.add('cart_item_price')
-                cartItemPrice.innerHTML = `${cart_item.product.printprice}`
+                cartItemPrice.innerHTML = `$${cart_item.product.printprice}`
                 let cartItemDelete = document.createElement('div')
                 cartItemDelete.setAttribute('class', 'large-1 cell')
                 cartItemDelete.classList.add('cart_item_delete')
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
             let totalPrice = document.getElementById('total_price')
-            totalPrice.innerHTML = `Total Price: ${cart.totalprice}`
+            totalPrice.innerHTML = `Cart Total:&nbsp; <span>$${cart.totalprice}</span>`
 
         };
         function fetchCart(cart_id) {

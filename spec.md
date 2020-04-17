@@ -1,0 +1,27 @@
+Requirements:
+- App Design
+    [ ] Frontend: HTML/CSS/JS
+    [ ] Backend: Rails
+    [ ] [GitHub - learn-co-curriculum/js-rails-as-api-creating-a-rails-api-from-scratch](https://github.com/learn-co-curriculum/js-rails-as-api-creating-a-rails-api-from-scratch)
+- JSON responses translated into OOJS classes and constructor function syntax
+- Rails backend must include:
+    [ ] one has-many relationship (photo has many comments)
+- Front and Backend must demonstrate Client-Server communication
+    [ ] 3 AJAX Calls
+    [x] At least 2 of CRUD
+    [x] JS must use Fetch on Rails db with RESTful convention
+
+
+
+JavaScript
+[ ] Use classes and functions to organize your code into reusable pieces.
+[ ] Translate JSON responses into JavaScript model objects using ES6 class or constructor function syntax.
+[ ] Use ES6 features when appropriate (e.g. arrow functions, let & const, rest and spread syntax).
+Rails
+[x] Follow Rails MVC and RESTful conventions. That means, for example, that a request GET /puppies ought to be handled by the PuppiesController, fetch puppies from the database using a Puppy Active Record model, and return a list of puppies as JSON.
+[x] Well-named variables and methods
+[x] Short, single-purpose methods
+Git
+[x] Aim for a large number of small commits - commit frequently!
+[x] Add meaningful messages to your commits. When you look back at your commits with git log, the messages should describe each change.
+[x] Don't include changes in a commit that aren't related to the commit message    

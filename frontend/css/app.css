@@ -4,6 +4,43 @@
     padding-bottom:40px;
 }
 
+#app_body {
+    background-color:#eff4fa;
+}
+
+#app_nav {
+    padding-left:2rem;
+    padding-right:2rem;
+    height:60px;
+    background-color:#fc4e3a;
+}
+
+#app_logo {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-stretch: expanded;
+    font-size: 22px;
+    font-weight: bolder;
+    line-height: .4;
+}
+
+#app_footer {
+    padding-top:10px;
+    background-color:#fc4e3a;
+    height:60px;
+    color:white;
+    text-align: center;
+    line-height: .2;
+}
+#app_footer h6{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-stretch: expanded;
+    font-weight: 700;
+    font-size: 16px;
+}
+#app_footer span{
+    font-size: 14px;
+}
+
 #search_container {
     margin:0;
     padding:0;
@@ -30,7 +67,7 @@
 .item_price {
     font-weight: 500;
     text-align: right;
-    color:steelblue;
+    color:#1679ba;
     font-stretch:expanded;
 }
 
@@ -38,7 +75,7 @@
     font-size: 20px;
     font-weight:500;
     padding:5px 10px;
-    background-color: coral;
+    background-color: #fc4e3a;
     color:white;
     border-radius: 3px;
     font-stretch:expanded;
@@ -54,15 +91,36 @@
 
 .active {
     cursor: pointer;
-    border-color:coral;
+    border-color:#fc4e3a;
 }
 .active h4 {
-    color:coral;
+    color: #fc4e3a;
 }
 
 .reveal {
     padding:0;
     border-radius: 5px;
+}
+
+#reveal_cart {
+    background-color:white;
+    color:#1679ba;
+    border-radius: 5px;
+    font-weight: 600;
+}
+#reveal_cart:hover {
+    background-color:#1679ba;
+    color: white;
+}
+
+.my_cart {
+    background-color: white;
+    color: #1679ba;
+    padding:1rem 2rem 2rem 2rem;
+    width: 350px;
+    -webkit-transform: translateX(350px);
+    -ms-transform: translateX(350px);
+    transform: translateX(350px);
 }
 
 .show-item {
@@ -73,7 +131,7 @@
     font-size: 16px;
     color:white;
     padding:10px 20px;
-    background-color: coral;
+    background-color: #fc4e3a;
     border-radius: 4px;
 }
 .order_button:hover {
@@ -92,10 +150,42 @@
 #load_cart {
     height: fit-content;
 }
+.current_cart {
+    font-weight: 600;
+    font-size: 30px;
+}
+#total_price {
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+}
+#total_price span {
+    color:#fc4e3a;
+}
+#complete_order {
+    text-align: center;
+}
+#complete_order button {
+    height:60px;
+    width:100%;
+    background-color:#fc4e3a;
+    border-radius: 4px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+#complete_order button:hover {
+    background-color:#eff4fa;
+    color: #fc4e3a;
+    border:solid 1px #fc4e3a;
+}
 
 .cart_item {
     font-weight: 500;
-    border:solid 1px lightskyblue;
+    color: black;
+    border:solid 1px #fc4e3a;
+    background-color: white;
+    border-radius: 4px;
     margin-top:10px;
     margin-bottom:10px;
     padding:10px 5px;

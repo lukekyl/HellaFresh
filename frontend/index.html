@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-  <body>
+  <body id="app_body">
     <div class="off-canvas-wrapper"></div>
     <!-- Cart -->
-    <div class="off-canvas position-right grid-container" id="offCanvas" data-off-canvas>
+    <div class="off-canvas position-right grid-container my_cart" id="offCanvas" data-off-canvas>
       <div class="grid-x" id="view_cart">
         <div class="large-12 cell" id="cart_data">
           <h4 class="current_cart">My Cart</h4>
@@ -34,13 +34,13 @@
 
     <!-- Nav-->
     <div data-sticky-container>
-      <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
-        <div class="title-bar-left">
+      <div class="title-bar" id="app_nav" data-sticky data-options="marginTop:0;" style="width:100%">
+        <div class="title-bar-left" id="app_logo">
           HellaFresh.
         </div>
         <div class="title-bar-right">
           <ul class="menu icons icon-left align-right">
-            <li><button type="button" class="button" id="reveal_cart" data-toggle="offCanvas"><i class="fa fa-list"></i></button></a></li>
+            <li><button type="button" class="button" id="reveal_cart" data-toggle="offCanvas"><i class="fa fa-list"></i>&nbsp; View Cart</button></a></li>
           </ul>
         </div>
       </div>
@@ -86,7 +86,6 @@
       </div>
 
       
-        
     <!-- Foundation -->
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
@@ -94,6 +93,15 @@
     <!-- Application -->
     <script src="js/app.js"></script>
     </div>
+
+    <!-- Footer -->
+    <div class="grid-x grid-padding-x" id="app_footer">
+      <div class="large-12 cell">
+        <h6>HellaFresh.</h6>
+        <span>©2020</span>
+      </div>
+    </div>
+
     </div>
   </body>
 </html>
