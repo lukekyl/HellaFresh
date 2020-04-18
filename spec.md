@@ -25,3 +25,17 @@ Git
 [x] Aim for a large number of small commits - commit frequently!
 [x] Add meaningful messages to your commits. When you look back at your commits with git log, the messages should describe each change.
 [x] Don't include changes in a commit that aren't related to the commit message    
+
+
+
+
+// class declaration
+// class constructor (initialize in ruby (though sans persistence))
+// look at each function or method, and decide if it is a "method on the prototype" (an instance method) or a "static method" (class method)
+    // static function blahBlah(){
+        
+    //}
+    //blahBlah(){
+
+    //}
+// then be sure that the variables you're dealing with are referred to properly -- creating JS objects and then calling methods on them, for example.

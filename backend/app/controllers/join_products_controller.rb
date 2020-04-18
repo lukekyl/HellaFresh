@@ -17,7 +17,7 @@ class JoinProductsController < ApplicationController
     end
     def create
         table = JoinProduct.create(cart_id: params[:cart_id], product_id: params[:product_id])
-        if table
+        if table.save
             render json: table
         else
             render json: {message: 'Error! Join Table could not be created in controller.'}
