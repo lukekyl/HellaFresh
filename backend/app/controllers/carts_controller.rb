@@ -20,8 +20,5 @@ class CartsController < ApplicationController
             render json: cart
         end
     end
-
-    private 
-
-    # Add before action to find cart
+    
 end
