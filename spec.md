@@ -14,9 +14,9 @@ Requirements:
 
 
 JavaScript
-[ ] Use classes and functions to organize your code into reusable pieces.
-[ ] Translate JSON responses into JavaScript model objects using ES6 class or constructor function syntax.
-[ ] Use ES6 features when appropriate (e.g. arrow functions, let & const, rest and spread syntax).
+[x] Use classes and functions to organize your code into reusable pieces.
+[x] Translate JSON responses into JavaScript model objects using ES6 class or constructor function syntax.
+[x] Use ES6 features when appropriate (e.g. arrow functions, let & const, rest and spread syntax).
 Rails
 [x] Follow Rails MVC and RESTful conventions. That means, for example, that a request GET /puppies ought to be handled by the PuppiesController, fetch puppies from the database using a Puppy Active Record model, and return a list of puppies as JSON.
 [x] Well-named variables and methods
@@ -28,14 +28,14 @@ Git
 
 
 
+To convert to OOJS:
+- class declaration
+- class constructor (initialize in ruby (though sans persistence))
+- look at each function or method, and decide if it is a 1."method on the prototype" (an instance method) or a 2."static method" (class method)
+    1.  blahBlah(){
 
-// class declaration
-// class constructor (initialize in ruby (though sans persistence))
-// look at each function or method, and decide if it is a "method on the prototype" (an instance method) or a "static method" (class method)
-    // static function blahBlah(){
+        }
+    2.   static function blahBlah(){
         
-    //}
-    //blahBlah(){
-
-    //}
-// then be sure that the variables you're dealing with are referred to properly -- creating JS objects and then calling methods on them, for example.
+        }
+- then be sure that the variables you're dealing with are referred to properly -- creating JS objects and then calling methods on them, for example.

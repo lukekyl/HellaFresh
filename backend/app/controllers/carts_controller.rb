@@ -1,39 +1,27 @@
 class CartsController < ApplicationController
     def index
-        # user = User.find_by(id: params[:user_id])
-        # carts = user.carts
         carts = Cart.all
-        render json: carts.to_json(:include => {:products => {:methods => [:printprice]}}, :methods => [:totalitems, :totalprice])
+        render json: carts, include: [join_products: [product: [ ]]]
     end
     def show
-        # user = User.find_by(id: params[:user_id])
-        # cart = user.carts.find_by(id: params[:id])
         cart = Cart.find_by(id: params[:id])
         if cart
-            render json: cart.to_json(:include => {:join_products => {:include => {:product => {:methods => [:printprice]}}}}, :methods => [:totalitems, :totalprice])
+            render json: cart, include: [join_products: [product: [ ]]]
         else
             render json: {message: 'Error! Cart not found.'}
         end
     end
     def create
-        c = Cart.find_by(id: params[:id])
-        puts c
-        if Cart.find_by(id: params[:id])
-            cart = Cart.find_by(:id => params[:id])
+        cart = Cart.find_by(id: params[:id])
+        if cart
             redirect_to "/carts/#{cart.id}"
         else
             cart = Cart.create()
             render json: cart
         end
     end
-    def edit
-        @cart = Cart.find(params[:id])
-        cart.update(product: params[:product])
-        render json: cart.to_json
-    end
-    def destroy
-        @cart = Cart.find(params[:id])
-        @cart.destroy
-        render json: cart.to_json
-    end
+
+    private 
+
+    # Add before action to find cart
 end

@@ -1,13 +1,9 @@
 class JoinProductsController < ApplicationController
     def index
-        # user = User.find_by(id: params[:user_id])
-        # carts = user.carts
         tables = JoinProduct.all
         render json: tables
     end
     def show
-        # user = User.find_by(id: params[:user_id])
-        # cart = user.carts.find_by(id: params[:id])
         table = JoinProduct.find_by(id: params[:id])
         if table
             render json: table
