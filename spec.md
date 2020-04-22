@@ -39,3 +39,9 @@ To convert to OOJS:
         
         }
 - then be sure that the variables you're dealing with are referred to properly -- creating JS objects and then calling methods on them, for example.
+
+
+To add branch and change to branch:
+git branch name-of-branch
+git status
+git checkout name-of-branch
