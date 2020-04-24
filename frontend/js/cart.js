@@ -79,6 +79,13 @@ class Cart {
             });
             let totalPrice = document.getElementById('total_price')
             totalPrice.innerHTML = `Cart Total:&nbsp; <span>$${cart.totalprice}</span>`
+
+            // Create Order Flow
+            let createOrder = document.querySelector('.current_order')
+            createOrder.addEventListener('click', (e) => {
+                Order.loadOrder(myCart)
+            });
+
         };
 
 
