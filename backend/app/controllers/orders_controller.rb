@@ -1,12 +1,12 @@
 class OrdersController < ApplicationController
     def index
         orders = Order.all
-        render json: orders, include: [:cart]
+        render json: orders, include: [cart: [join_products: [product: [ ]]]]
     end
     def show
         order = Order.find_by(id: params[:id])
         if order
-            render json: order, include: [:cart]
+            render json: order, include: [cart: [join_products: [product: [ ]]]]
         else
             render json: {message: 'Error! Order not found.'}
         end
