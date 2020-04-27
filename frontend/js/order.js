@@ -39,9 +39,39 @@ class Order {
 
     renderOrder(){
         let myOrder = this
+        let cart_id = myOrder.cart.id
+        function displayOrder(myOrder, myCart){
+        
         console.log(myOrder)
         currentOrder.setAttribute('id', `${myOrder.id}`)
+        const showOrder = document.querySelector('div.show-order')
+        showOrder.innerHTML =
+            `
+            <div class="card-section grid-x order_form">
+            <div class="large-8 medium-6 item_title"><h4>Cart Id: ${myCart.id}</h4></div>
+            <div class="large-8 medium-6 item_title"><h4>Cart Items: ${myCart.totalitems}</h4></div>
+            <div class="large-8 medium-6 item_title"><h4>Cart Total: ${myCart.totalprice}</h4></div>
+            </div>
+            `
+        };
+
+        fetch(`http://localhost:3000/carts/${cart_id}`)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (cart) {
+                console.log(cart)
+                let myCart = new Cart(cart)
+                displayOrder(myOrder, myCart)
+            })
+            .catch(function (error) {
+                alert('Error!')
+                let e = new Error(error)
+                e.renderError()
+            });
     };
+
+    
 
 
 };

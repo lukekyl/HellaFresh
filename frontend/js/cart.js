@@ -3,6 +3,8 @@ const currentCart = document.querySelector('.current_cart')
 class Cart {
     constructor(cart) {
         this.id = cart.id
+        this.totalprice = cart.totalprice
+        this.totalitems = cart.totalitems
     }
 
 
@@ -83,6 +85,7 @@ class Cart {
             // Create Order Flow
             let createOrder = document.querySelector('.current_order')
             createOrder.addEventListener('click', (e) => {
+                document.querySelector('div.js-off-canvas-overlay').click();
                 Order.loadOrder(myCart)
             });
 
