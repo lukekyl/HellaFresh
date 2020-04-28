@@ -1,5 +1,3 @@
-const isSorted = false
-
 class Menu {
     constructor() {
         this.productList = []
@@ -27,7 +25,7 @@ class Menu {
         //}
     }
 
-    //Sort Menu
+    //Sort Menu Alphabetically
 
     sortMenu(){
         let myMenu = this.productList
@@ -45,6 +43,31 @@ class Menu {
         })
         //console.log(sortedMenu)
         this.renderMenu(sortedMenu)
+    }
+
+    //Sort Menu By Price
+
+    sortPrice() {
+        let myMenu = this.productList
+        //console.log(myMenu)
+        let sortedMenu = myMenu.sort(function (a, b) {
+            let priceA = a.price
+            let priceB = b.price
+            if (priceA < priceB) {
+                return -1
+            } else if (priceA > priceB) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        //console.log(sortedMenu)
+        this.renderMenu(sortedMenu)
+    }
+
+    sortClear(){
+        let searchTerm = ""
+        Product.fetchMenu(searchTerm)
     }
 
 
@@ -86,11 +109,6 @@ class Menu {
             card.appendChild(image);
             card.appendChild(menuContent);
 
-            // Sort Entrees Button Listener
-            const sortMenuBtn = document.querySelector('.sort-menu')
-            sortMenuBtn.addEventListener('click', (e) => {
-                this.sortMenu()
-            })
 
             // Append products here in sorted locations by category
             if (starterMenu.id === item.category) {
@@ -108,6 +126,23 @@ class Menu {
                 dessertMenu.appendChild(card);
             } else { console.log(`${item.name} cound not be placed.`) }
 
+            // Sort Alphabetically Button Listener
+            const sortMenuBtn = document.querySelector('.sort-menu')
+            sortMenuBtn.addEventListener('click', (e) => {
+                this.sortMenu()
+            })
+
+            // Sort By Price Button Listener
+            const sortPriceBtn = document.querySelector('.sort-price')
+            sortPriceBtn.addEventListener('click', (e) => {
+                this.sortPrice()
+            })
+
+            // Clear Sort Button Listener
+            const sortClearBtn = document.querySelector('.sort-clear')
+            sortClearBtn.addEventListener('click', (e) => {
+                this.sortClear()
+            })
 
             //Hover
             const revealItem = document.querySelector('div.reveal')

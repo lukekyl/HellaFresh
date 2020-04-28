@@ -48,14 +48,21 @@
     border: 1px solid rgba(10, 10, 10, 0.25);
 }
 
+.sort-header {
+    font-size:16px;
+    color:rgb(185, 185, 185);
+    
+}
+
 .sort-me {
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color:#1679ba;
     padding:10px 20px;
     background-color:rgb(245, 245, 245);
     border-radius: 4px;
+    margin: 0 5px;
 }
 .sort-me:hover {
     background-color:rgb(230, 230, 230);
