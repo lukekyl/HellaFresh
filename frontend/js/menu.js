@@ -1,3 +1,5 @@
+const isSorted = false
+
 class Menu {
     constructor() {
         this.productList = []
@@ -19,8 +21,32 @@ class Menu {
                 return productName.startsWith(searchTerm)
             })
         }
+        //if (isSorted === true) {
+        //myMenu.sortMenu(filteredMenu)
         myMenu.renderMenu(filteredMenu)
+        //}
     }
+
+    //Sort Menu
+
+    sortMenu(){
+        let myMenu = this.productList
+        //console.log(myMenu)
+        let sortedMenu = myMenu.sort(function(a, b){ 
+            let nameA = a.name.toLowerCase()
+            let nameB = b.name.toLowerCase()
+            if (nameA < nameB) {
+                return -1
+            } else if (nameA > nameB) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        //console.log(sortedMenu)
+        this.renderMenu(sortedMenu)
+    }
+
 
 
     // Show Menu
@@ -60,6 +86,12 @@ class Menu {
             card.appendChild(image);
             card.appendChild(menuContent);
 
+            // Sort Entrees Button Listener
+            const sortMenuBtn = document.querySelector('.sort-menu')
+            sortMenuBtn.addEventListener('click', (e) => {
+                this.sortMenu()
+            })
+
             // Append products here in sorted locations by category
             if (starterMenu.id === item.category) {
                 starterMenu.parentElement.style.display = "block"
@@ -67,6 +99,7 @@ class Menu {
             } else if (entreeMenu.id === item.category) {
                 entreeMenu.parentElement.style.display = "block"
                 entreeMenu.appendChild(card);
+
             } else if (drinkMenu.id === item.category) {
                 drinkMenu.parentElement.style.display = "block"
                 drinkMenu.appendChild(card);
@@ -74,6 +107,7 @@ class Menu {
                 dessertMenu.parentElement.style.display = "block"
                 dessertMenu.appendChild(card);
             } else { console.log(`${item.name} cound not be placed.`) }
+
 
             //Hover
             const revealItem = document.querySelector('div.reveal')
