@@ -22,13 +22,30 @@ class Menu {
         myMenu.renderMenu(filteredMenu)
     }
 
-    //Sort Menu Alphabetically
 
-    sortMenu(){
+    //Sort Menu Alphabetically
+    listenForSort(){
+        // Sort Alphabetically Button Listener
+        const sortMenuBtn = document.querySelector('.sort-menu')
+        sortMenuBtn.addEventListener('click', (e) => {
+            this.sortMenu()
+        })
+        // Sort By Price Button Listener
+        const sortPriceBtn = document.querySelector('.sort-price')
+        sortPriceBtn.addEventListener('click', (e) => {
+            this.sortPrice()
+        })
+        // Clear Sort Button Listener
+        const sortClearBtn = document.querySelector('.sort-clear')
+        sortClearBtn.addEventListener('click', (e) => {
+            this.sortClear()
+        })
+    }
+    sortMenu() {
         let myMenu = this
         myMenu.sortedMenu = []
         let productList = myMenu.productList
-        myMenu.sortedMenu = productList.sort(function(a, b){ 
+        myMenu.sortedMenu = productList.sort(function(a, b) { 
             let nameA = a.name.toLowerCase()
             let nameB = b.name.toLowerCase()
             if (nameA < nameB) {
@@ -65,8 +82,21 @@ class Menu {
     }
 
     sortClear(){
-        let searchTerm = ""
-        Product.fetchMenu(searchTerm)
+        let myMenu = this
+        let productList = myMenu.productList
+        myMenu.productList = productList.sort(function (a, b) {
+            let idA = a.id
+            let idB = b.id
+            if (idA < idB) {
+                return -1
+            } else if (idA > idB) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        // console.log(myMenu.sortedPrice)
+        this.renderMenu(myMenu.productList)
     }
 
 
@@ -75,21 +105,7 @@ class Menu {
     renderMenu(productList) {
         console.log(this)
 
-        // Sort Alphabetically Button Listener
-        const sortMenuBtn = document.querySelector('.sort-menu')
-        sortMenuBtn.addEventListener('click', (e) => {
-            this.sortMenu()
-        })
-        // Sort By Price Button Listener
-        const sortPriceBtn = document.querySelector('.sort-price')
-        sortPriceBtn.addEventListener('click', (e) => {
-            this.sortPrice()
-        })
-        // Clear Sort Button Listener
-        const sortClearBtn = document.querySelector('.sort-clear')
-        sortClearBtn.addEventListener('click', (e) => {
-            this.sortClear()
-        })
+        
 
         // Create locations by category for products to go
         const starterMenu = document.getElementById('Starter')

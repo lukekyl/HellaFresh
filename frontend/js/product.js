@@ -13,7 +13,7 @@ class Product {
 // Fetch Menu
     static fetchMenu(searchTerm) {
         let myMenu = new Menu()
-
+        myMenu.listenForSort()
         fetch('http://localhost:3000/products')
             .then(response => response.json())
             .then(function (products) {
