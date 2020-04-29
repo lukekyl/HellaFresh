@@ -19,18 +19,16 @@ class Menu {
                 return productName.startsWith(searchTerm)
             })
         }
-        //if (isSorted === true) {
-        //myMenu.sortMenu(filteredMenu)
         myMenu.renderMenu(filteredMenu)
-        //}
     }
 
     //Sort Menu Alphabetically
 
     sortMenu(){
-        let myMenu = this.productList
-        //console.log(myMenu)
-        let sortedMenu = myMenu.sort(function(a, b){ 
+        let myMenu = this
+        myMenu.sortedMenu = []
+        let productList = myMenu.productList
+        myMenu.sortedMenu = productList.sort(function(a, b){ 
             let nameA = a.name.toLowerCase()
             let nameB = b.name.toLowerCase()
             if (nameA < nameB) {
@@ -41,16 +39,17 @@ class Menu {
                 return 0
             }
         })
-        //console.log(sortedMenu)
-        this.renderMenu(sortedMenu)
+        // console.log(myMenu.sortedMenu)
+        this.renderMenu(myMenu.sortedMenu)
     }
 
     //Sort Menu By Price
 
-    sortPrice() {
-        let myMenu = this.productList
-        //console.log(myMenu)
-        let sortedMenu = myMenu.sort(function (a, b) {
+    sortPrice() { 
+        let myMenu = this
+        myMenu.sortedPrice = []
+        let productList = myMenu.productList
+        myMenu.sortedPrice = productList.sort(function (a, b) {
             let priceA = a.price
             let priceB = b.price
             if (priceA < priceB) {
@@ -61,8 +60,8 @@ class Menu {
                 return 0
             }
         })
-        //console.log(sortedMenu)
-        this.renderMenu(sortedMenu)
+        // console.log(myMenu.sortedPrice)
+        this.renderMenu(myMenu.sortedPrice)
     }
 
     sortClear(){
@@ -74,7 +73,25 @@ class Menu {
 
     // Show Menu
     renderMenu(productList) {
-        console.log(productList)
+        console.log(this)
+
+        // Sort Alphabetically Button Listener
+        const sortMenuBtn = document.querySelector('.sort-menu')
+        sortMenuBtn.addEventListener('click', (e) => {
+            this.sortMenu()
+        })
+        // Sort By Price Button Listener
+        const sortPriceBtn = document.querySelector('.sort-price')
+        sortPriceBtn.addEventListener('click', (e) => {
+            this.sortPrice()
+        })
+        // Clear Sort Button Listener
+        const sortClearBtn = document.querySelector('.sort-clear')
+        sortClearBtn.addEventListener('click', (e) => {
+            this.sortClear()
+        })
+
+        // Create locations by category for products to go
         const starterMenu = document.getElementById('Starter')
         starterMenu.innerHTML = ""
         starterMenu.parentElement.style.display = "none"
@@ -109,8 +126,7 @@ class Menu {
             card.appendChild(image);
             card.appendChild(menuContent);
 
-
-            // Append products here in sorted locations by category
+            // Append products here in locations by category
             if (starterMenu.id === item.category) {
                 starterMenu.parentElement.style.display = "block"
                 starterMenu.appendChild(card);
@@ -126,23 +142,7 @@ class Menu {
                 dessertMenu.appendChild(card);
             } else { console.log(`${item.name} cound not be placed.`) }
 
-            // Sort Alphabetically Button Listener
-            const sortMenuBtn = document.querySelector('.sort-menu')
-            sortMenuBtn.addEventListener('click', (e) => {
-                this.sortMenu()
-            })
 
-            // Sort By Price Button Listener
-            const sortPriceBtn = document.querySelector('.sort-price')
-            sortPriceBtn.addEventListener('click', (e) => {
-                this.sortPrice()
-            })
-
-            // Clear Sort Button Listener
-            const sortClearBtn = document.querySelector('.sort-clear')
-            sortClearBtn.addEventListener('click', (e) => {
-                this.sortClear()
-            })
 
             //Hover
             const revealItem = document.querySelector('div.reveal')
