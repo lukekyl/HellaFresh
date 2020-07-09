@@ -105,8 +105,6 @@ class Menu {
     renderMenu(productList) {
         console.log(this)
 
-        
-
         // Create locations by category for products to go
         const starterMenu = document.getElementById('Starter')
         starterMenu.innerHTML = ""
