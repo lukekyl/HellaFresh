@@ -4,7 +4,7 @@ const currentCart = document.querySelector('.current_cart')
 // const appUrl = 'http://localhost:3000'
 
 //Heroku Mode
-const appUrl = ''
+// const appUrl = ''
 
 class Cart {
     constructor(cart) {
