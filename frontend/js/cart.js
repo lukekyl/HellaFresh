@@ -1,5 +1,4 @@
 const currentCart = document.querySelector('.current_cart')
-
 //Dev Mode
 // const appUrl = 'http://localhost:3000'
 
@@ -14,9 +13,6 @@ class Cart {
     }
 
     
-
-
-
 // Load or Create Cart
     static loadCart(product_id) {
         let configCart = {
