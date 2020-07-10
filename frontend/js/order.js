@@ -21,7 +21,7 @@ class Order {
             })
         };
 
-        fetch("http://localhost:3000/users/1/orders", configOrder)
+        fetch(`${appUrl}/users/1/orders`, configOrder)
             .then(function (response) {
                 return response.json();
             })
@@ -56,7 +56,7 @@ class Order {
             `
 
 
-        // fetch(`http://localhost:3000/carts/${cart_id}`)
+        // fetch(`${appUrl}/carts/${cart_id}`)
         //     .then(function (response) {
         //         return response.json();
         //     })
