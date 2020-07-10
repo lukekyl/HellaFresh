@@ -1,5 +1,11 @@
 const currentCart = document.querySelector('.current_cart')
 
+//Dev Mode
+// const appUrl = 'http://localhost:3000'
+
+//Heroku Mode
+const appUrl = ''
+
 class Cart {
     constructor(cart) {
         this.id = cart.id
