@@ -1,11 +1,7 @@
 $(document).foundation();
 document.addEventListener('DOMContentLoaded', () => {
 
-    //Dev Mode
-    // const appUrl = 'http://localhost:3000'
 
-    //Heroku Mode
-    const appUrl = ''
 
     const searchForm = document.getElementById('search_form')
     let searchTerm = ""
