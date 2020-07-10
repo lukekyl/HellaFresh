@@ -16,7 +16,7 @@ class Menu {
         if (searchTerm !== null) {
             filteredMenu = myMenu.productList.filter(product => {
                 let productName = product.name.toLowerCase()
-                return productName.startsWith(searchTerm)
+                return productName.includes(searchTerm)
             })
         }
         myMenu.renderMenu(filteredMenu)
