@@ -1,8 +1,4 @@
-//Dev Mode
-const appUrl = 'http://localhost:3000'
 
-//Heroku Mode
-// const appUrl = ''
 
 class Product {
 
