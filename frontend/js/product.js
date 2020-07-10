@@ -1,3 +1,9 @@
+//Dev Mode
+// const appUrl = 'http://localhost:3000'
+
+//Heroku Mode
+const appUrl = ''
+
 class Product {
 
     constructor(product){
@@ -14,7 +20,7 @@ class Product {
     static fetchMenu(searchTerm) {
         let myMenu = new Menu()
 
-        fetch('http://localhost:3000/products')
+        fetch(`${appUrl}/products`)
             .then(response => response.json())
             .then(function (products) {
                 console.log(searchTerm)

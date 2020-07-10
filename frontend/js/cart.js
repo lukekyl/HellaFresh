@@ -1,9 +1,17 @@
 const currentCart = document.querySelector('.current_cart')
 
+//Dev Mode
+// const appUrl = 'http://localhost:3000'
+
+//Heroku Mode
+const appUrl = ''
+
 class Cart {
     constructor(cart) {
         this.id = cart.id
     }
+
+    
 
 
 
@@ -17,7 +25,7 @@ class Cart {
             body: JSON.stringify({ id: currentCart.id })
         };
 
-        fetch("http://localhost:3000/carts", configCart)
+        fetch(`${appUrl}/carts`, configCart)
             .then(function (response) {
                 return response.json();
             })
@@ -82,7 +90,7 @@ class Cart {
         };
 
 
-        fetch(`http://localhost:3000/carts/${myCart.id}`)
+        fetch(`${appUrl}/carts/${myCart.id}`)
             .then(function (response) {
                 return response.json();
             })
@@ -115,7 +123,7 @@ class Cart {
             body: JSON.stringify(formData)
         };
 
-        fetch("http://localhost:3000/join_products", createJoinTable)
+        fetch(`${appUrl}/join_products`, createJoinTable)
             .then(function (response) {
                 return response.json();
             })
@@ -142,7 +150,7 @@ class Cart {
         let deleteRequest = {
             method: "DELETE",
         };
-        fetch(`http://localhost:3000/join_products/${table_id}`, deleteRequest)
+        fetch(`${appUrl}/join_products/${table_id}`, deleteRequest)
             .then(function (response) {
                 return response.json();
             })
