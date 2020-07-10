@@ -7,7 +7,8 @@
     "author": "Kyle Luke",
     "license": "MIT",
     "scripts": {
-        "deploy": "cp -a frontend/. public/"
+        "build": "cp -a frontend/. public/",
+        "postinstall": "yarn build && echo 'Public built!'"
     },
     "engines": {
         "yarn": "1.22.0",
