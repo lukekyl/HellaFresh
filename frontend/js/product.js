@@ -19,13 +19,9 @@ class Product {
 // Fetch Menu
     static fetchMenu(searchTerm) {
         let myMenu = new Menu()
-<<<<<<< HEAD
+        myMenu.listenForSort()
 
         fetch(`${appUrl}/products`)
-=======
-        myMenu.listenForSort()
-        fetch('http://localhost:3000/products')
->>>>>>> add-order-functionality
             .then(response => response.json())
             .then(function (products) {
                 console.log(searchTerm)
