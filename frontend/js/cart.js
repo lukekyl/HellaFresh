@@ -9,6 +9,8 @@ const appUrl = ''
 class Cart {
     constructor(cart) {
         this.id = cart.id
+        this.totalprice = cart.totalprice
+        this.totalitems = cart.totalitems
     }
 
     
@@ -87,6 +89,14 @@ class Cart {
             });
             let totalPrice = document.getElementById('total_price')
             totalPrice.innerHTML = `Cart Total:&nbsp; <span>$${cart.totalprice}</span>`
+
+            // Create Order Flow
+            let createOrder = document.querySelector('.current_order')
+            createOrder.addEventListener('click', (e) => {
+                document.querySelector('div.js-off-canvas-overlay').click();
+                Order.loadOrder(myCart)
+            });
+
         };
 
 

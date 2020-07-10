@@ -41,9 +41,36 @@
     font-size: 14px;
 }
 
-#search_container {
-    margin:0;
+.sort {
+    background-color:white;
+    padding:3.5px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid rgba(10, 10, 10, 0.25);
+}
+
+.sort-header {
+    font-size:16px;
+    color:rgb(185, 185, 185);
+    
+}
+
+.sort-me {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color:#1679ba;
+    background-color:rgb(245, 245, 245);
+    border-radius: 4px;
     padding:0;
+}
+.sort-me:hover {
+    background-color:rgb(230, 230, 230);
+}
+
+#search_container {
+    /* margin:0;
+    padding:0; */
 }
 
 .menu_image {

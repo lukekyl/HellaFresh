@@ -23,9 +23,89 @@ class Menu {
     }
 
 
+    //Sort Menu Alphabetically
+    listenForSort(){
+        // Sort Alphabetically Button Listener
+        const sortMenuBtn = document.querySelector('.sort-menu')
+        sortMenuBtn.addEventListener('click', (e) => {
+            this.sortMenu()
+        })
+        // Sort By Price Button Listener
+        const sortPriceBtn = document.querySelector('.sort-price')
+        sortPriceBtn.addEventListener('click', (e) => {
+            this.sortPrice()
+        })
+        // Clear Sort Button Listener
+        const sortClearBtn = document.querySelector('.sort-clear')
+        sortClearBtn.addEventListener('click', (e) => {
+            this.sortClear()
+        })
+    }
+    sortMenu() {
+        let myMenu = this
+        myMenu.sortedMenu = []
+        let productList = myMenu.productList
+        myMenu.sortedMenu = productList.sort(function(a, b) { 
+            let nameA = a.name.toLowerCase()
+            let nameB = b.name.toLowerCase()
+            if (nameA < nameB) {
+                return -1
+            } else if (nameA > nameB) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        // console.log(myMenu.sortedMenu)
+        this.renderMenu(myMenu.sortedMenu)
+    }
+
+    //Sort Menu By Price
+
+    sortPrice() { 
+        let myMenu = this
+        myMenu.sortedPrice = []
+        let productList = myMenu.productList
+        myMenu.sortedPrice = productList.sort(function (a, b) {
+            let priceA = a.price
+            let priceB = b.price
+            if (priceA < priceB) {
+                return -1
+            } else if (priceA > priceB) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        // console.log(myMenu.sortedPrice)
+        this.renderMenu(myMenu.sortedPrice)
+    }
+
+    sortClear(){
+        let myMenu = this
+        let productList = myMenu.productList
+        myMenu.productList = productList.sort(function (a, b) {
+            let idA = a.id
+            let idB = b.id
+            if (idA < idB) {
+                return -1
+            } else if (idA > idB) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        // console.log(myMenu.sortedPrice)
+        this.renderMenu(myMenu.productList)
+    }
+
+
+
     // Show Menu
     renderMenu(productList) {
-        console.log(productList)
+        console.log(this)
+
+        // Create locations by category for products to go
         const starterMenu = document.getElementById('Starter')
         starterMenu.innerHTML = ""
         starterMenu.parentElement.style.display = "none"
@@ -60,13 +140,14 @@ class Menu {
             card.appendChild(image);
             card.appendChild(menuContent);
 
-            // Append products here in sorted locations by category
+            // Append products here in locations by category
             if (starterMenu.id === item.category) {
                 starterMenu.parentElement.style.display = "block"
                 starterMenu.appendChild(card);
             } else if (entreeMenu.id === item.category) {
                 entreeMenu.parentElement.style.display = "block"
                 entreeMenu.appendChild(card);
+
             } else if (drinkMenu.id === item.category) {
                 drinkMenu.parentElement.style.display = "block"
                 drinkMenu.appendChild(card);
@@ -74,6 +155,8 @@ class Menu {
                 dessertMenu.parentElement.style.display = "block"
                 dessertMenu.appendChild(card);
             } else { console.log(`${item.name} cound not be placed.`) }
+
+
 
             //Hover
             const revealItem = document.querySelector('div.reveal')

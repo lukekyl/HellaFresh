@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('search_form')
     let searchTerm = ""
 
+
     // First Page Load Menu Call
     Product.fetchMenu(searchTerm)
 
@@ -13,5 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
             searchTerm = event.target.firstElementChild.firstElementChild.firstElementChild.firstElementChild.value.toLowerCase()
             Product.fetchMenu(searchTerm);
         })
+
 
 });

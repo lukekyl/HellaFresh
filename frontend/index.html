@@ -25,7 +25,7 @@
           
         </div>
         <div class="large-12 cell align-self-bottom" id="complete_order">
-            <button>
+            <button class="current_order" data-open="reveal-order">
               Complete Order
             </button>
         </div>
@@ -50,8 +50,8 @@
     <div class="grid-container off-canvas-content" id="main" data-off-canvas-content>
             
 
-        <div class="grid-x grid-padding-x">
-          <div class="large-12 cell"  id="search_container">
+        <div class="grid-x grid-margin-x">
+          <div class="large-5 cell"  id="search_container">
             <!-- Search Bar -->
             <form id="search_form">
               <div class="grid-x">
@@ -63,15 +63,34 @@
               </div>
             </form>
           </div>
+
+          <!-- Sort Bar -->
+          <div class="large-7 cell grid-x grid-margin-x sort">
+            <div class="large-4 cell sort-header"><span style="color:black; font-size: 20px;">&#9782;</span>&nbsp;&nbsp; Sort
+              HellaFresh Menu</div>
+            <button class="large-3 cell sort-menu sort-me">Alphabetically</button>
+            <button class="large-3 cell sort-price sort-me">By Price</button>
+            <button class="large-2 cell sort-clear sort-me float-right">Clear</button>
+          </div>
+
+
+        <!-- Errors -->
         <div class="large-12 cell" id="errors">
-        
         </div>
+
         <div class="reveal" data-reveal>
           <div class="show-item card cell" id>
             <!-- Reveal Menu Item Modal -->
           </div>
         </div>
       </div>
+      <div class="reveal" id="reveal-order" data-reveal>
+        <div class="show-order card cell">
+          <!-- Reveal Order Modal -->
+        </div>
+      </div>
+
+      
       
         <!-- Menu Sections -->
       <div class="grid-x grid-padding-x">
@@ -95,6 +114,7 @@
     <script src="js/product.js"></script>
     <script src="js/menu.js"></script>
     <script src="js/cart.js"></script>
+    <script src="js/order.js"></script>
     <script src="js/error.js"></script>
     </div>
 
